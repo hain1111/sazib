@@ -6,7 +6,10 @@
   padding : 10px;
   border: 2px solid #000;
 }
-
+.ui {
+  display : flex;
+  justify-content : flex-end;
+}
 .cell {
   background-color : grey;
   width : 30px;
@@ -16,4 +19,5 @@
   align-items : center;
   font-size : 16px;
   color : black;
+  border: 2px solid $000;
 }
