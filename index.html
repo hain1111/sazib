@@ -7,17 +7,21 @@
   </head>
   <body>
       <h4>지뢰찾기</h4>
-      <div class="ui">
-        <h5 id="total">폭탄 수:0</h5>
-      </div>
-      <div class="ui">
-      <button id="reset" onclick="InitBoard('easy')">초보</button>
-      <button id="reset" onclick="InitBoard('medium')">중수</button>
-      <button id="reset" onclick="InitBoard('hard')">고수</button>
+      <div class="ui-container">
+        <div class="ui">
+          <h5 id="total">폭탄 수:0   </h5>
+          <h5 id="flags">깃발 수:0</h5>
+        </div>
+      
+        <div class="ui">
+          <button id="reset" onclick="InitBoard('easy')">초보</button>
+          <button id="reset" onclick="InitBoard('medium')">중수</button>
+          <button id="reset" onclick="InitBoard('hard')">고수</button>
+        </div>
       </div>
       
       <div id="board"></div>
-      <div class = "cell"></div>
+      <a href="https://www.flaticon.com/kr/free-icons/" title="깃발 아이콘">깃발 아이콘 제작자: gungyoga04 - Flaticon</a>
       <script src="script.js"></script>
   </body>
 </html>
