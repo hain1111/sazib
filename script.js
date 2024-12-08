@@ -4,6 +4,7 @@ let cols = 10; // 열
 let checked_nums = 0; // 확인한 셀 수
 let totalBombs = 0; // 폭탄 수
 let pro = 0.1; // 폭탄 확률
+let flag_nums = 0; // 깃발 수
 
 // 보드 초기화
 function InitBoard(level) {
@@ -11,6 +12,7 @@ function InitBoard(level) {
   checked_nums = 0;
   totalBombs = 0;
   pro = 0.1;
+  flag_nums = 0;
   
   if (level === "easy") {
     rows = 10;
@@ -41,13 +43,18 @@ function InitBoard(level) {
       cell.dataset.row = i;
       cell.dataset.col = j;
       cell.dataset.checked = "false";
+      cell.dataset.isFlag = "false";
       cell.onclick = function() {handle(i, j); };
+      cell.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        handleRight(event, i, j);
+      })
       board.appendChild(cell);
     }
   }
   
   const total = document.getElementById("total");
-  total.textContent = `폭탄 수:${totalBombs}`;
+  total.textContent = `폭탄 수: ${totalBombs}   `;
   
 }
 
@@ -71,6 +78,31 @@ function handle(row, col) {
     isPlay = false;
     GameClear();
   }
+}
+
+// 셀 우클릭
+function handleRight(event, row, col) {
+  if (!isPlay) return;
+  
+  const cell = document.getElementById(`cell-${row}${col}`);
+  if (cell.dataset.isFlag === "false") {
+    cell.dataset.isFlag = "true";
+    const img = document.createElement("img");
+    img.src = "https://assets.onecompiler.app/432dtqmtf/432dkxvzx/flag.png";
+    img.style.width = "25px";
+    img.style.height = "25px";
+    cell.appendChild(img);
+    flag_nums++;
+    const flags = document.getElementById("flags");
+    flags.textContent = `깃발 수: ${flag_nums}`;
+  } else {
+    cell.dataset.isFlag = "false";
+    cell.removeChild(cell.firstChild);
+    flag_nums--;
+    const flags = document.getElementById("flags");
+    flags.textContent = `깃발 수: ${flag_nums}`;
+  }
+  
 }
 
 // 인접 셀 조사
