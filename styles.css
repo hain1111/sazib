@@ -7,8 +7,21 @@
   border: 2px solid #000;
 }
 .ui {
-  display : flex;
-  justify-content : flex-end;
+  display: flex;
+  margin : 0;
+  flex-direction: column;
+}
+.ui-container {
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end;
+}
+.ui h5 { 
+  margin: 2px 0; /* 간격 조절 */ 
+  
+} 
+.ui button { 
+  margin-right: 2px; /* 버튼 간격 조절 */ 
 }
 .cell {
   background-color : grey;
