@@ -37,8 +37,8 @@ function InitBoard(level) {
     for (let j = 0; j <  cols; j++) {
       const cell = document.createElement("div");
       cell.className = "cell";
-      cell.id = `cell-${i}${j}`;
-      cell.dataset.isbomb = Math.random() < 0.1;
+      cell.id = `cell-${i}-${j}`;
+      cell.dataset.isbomb = Math.random() < pro;
       if (cell.dataset.isbomb === "true") totalBombs++;
       cell.dataset.row = i;
       cell.dataset.col = j;
@@ -62,9 +62,20 @@ function InitBoard(level) {
 function handle(row, col) {
   if (!isPlay) return;
   
-  const cell = document.getElementById(`cell-${row}${col}`);
+  const cell = document.getElementById(`cell-${row}-${col}`);
   const isbomb = cell.dataset.isbomb === "true";
+  
+  const textContainer = document.getElementById("textContainer");
+  const c = document.createElement("p");
+  if (textContainer.firstChild) textContainer.removeChild(textContainer.firstChild);
+  textContainer.appendChild(c);
+  c.textContent = `${cell.id} 
+  ${cell.dataset.row} ${cell.dataset.col} ${cell.dataset.checked}
+  ${cell.dataset.bomb_nums}`;
+  
   Neighbor(row, col);
+  
+  
   
   //폭탄 클릭할 경우
   if (isbomb) {
@@ -84,7 +95,8 @@ function handle(row, col) {
 function handleRight(event, row, col) {
   if (!isPlay) return;
   
-  const cell = document.getElementById(`cell-${row}${col}`);
+  const cell = document.getElementById(`cell-${row}-${col}`);
+  if (cell.dataset.checked === "true") return;
   if (cell.dataset.isFlag === "false") {
     cell.dataset.isFlag = "true";
     const img = document.createElement("img");
@@ -107,35 +119,35 @@ function handleRight(event, row, col) {
 
 // 인접 셀 조사
 function Neighbor(row, col) {
-  const cell = document.getElementById(`cell-${row}${col}`);
+  const cell = document.getElementById(`cell-${row}-${col}`);
   if (cell.dataset.checked === "true") return 0;
   
   const neighbor = [];
   let bomb_nums = 0;
   
   if (row > 0) {
-    neighbor.push(document.getElementById(`cell-${row - 1}${col}`));
+    neighbor.push(document.getElementById(`cell-${row - 1}-${col}`));
   }
   if (row < rows - 1) {
-    neighbor.push(document.getElementById(`cell-${row + 1}${col}`));
+    neighbor.push(document.getElementById(`cell-${row + 1}-${col}`));
   }
   if (col > 0) {
-    neighbor.push(document.getElementById(`cell-${row}${col - 1}`));
+    neighbor.push(document.getElementById(`cell-${row}-${col - 1}`));
   }
   if (col < cols - 1) {
-    neighbor.push(document.getElementById(`cell-${row}${col + 1}`));
+    neighbor.push(document.getElementById(`cell-${row}-${col + 1}`));
   }
   if (row > 0 && col > 0) {
-    neighbor.push(document.getElementById(`cell-${row - 1}${col - 1}`));
+    neighbor.push(document.getElementById(`cell-${row - 1}-${col - 1}`));
   }
   if (row < rows - 1 && col > 0) {
-    neighbor.push(document.getElementById(`cell-${row + 1}${col - 1}`));
+    neighbor.push(document.getElementById(`cell-${row + 1}-${col - 1}`));
   }
   if (row > 0 && col < cols - 1) {
-    neighbor.push(document.getElementById(`cell-${row - 1}${col + 1}`));
+    neighbor.push(document.getElementById(`cell-${row - 1}-${col + 1}`));
   }
   if (row < rows - 1 && col < cols - 1) {
-    neighbor.push(document.getElementById(`cell-${row + 1}${col + 1}`));
+    neighbor.push(document.getElementById(`cell-${row + 1}-${col + 1}`));
   }
   
   for (let i = 0; i < neighbor.length; i++) {
@@ -146,7 +158,7 @@ function Neighbor(row, col) {
   
   cell.dataset.checked = "true";
   checked_nums++;
-  
+  cell.dataset.bomb_nums = bomb_nums;
   cell.textContent = `${bomb_nums}`;
   cell.style.color = "black";
   cell.style.backgroundColor = "#fff";
