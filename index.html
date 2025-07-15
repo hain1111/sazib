@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <head>
     <title>Hello, World!</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
       <h4>지뢰찾기</h4>
@@ -14,6 +14,11 @@
         </div>
       
         <div class="ui">
+			가로<input type="text" id="wei"><br>
+			세로<input type="text" id="hei"><br>
+			<button id="reset" onclick="InitBoard('null')">
+				리셋
+			</button>
           <button id="reset" onclick="InitBoard('easy')">초보</button>
           <button id="reset" onclick="InitBoard('medium')">중수</button>
           <button id="reset" onclick="InitBoard('hard')">고수</button>
