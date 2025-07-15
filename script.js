@@ -9,6 +9,8 @@ let flag_nums = 0; // 깃발 수
 // 보드 초기화
 function InitBoard(level) {
   ClearBoard();
+	const hei = document.getElementById("hei").value;
+	const wei = document.getElementById("wei").value;
   checked_nums = 0;
   totalBombs = 0;
   pro = 0.1;
@@ -28,6 +30,10 @@ function InitBoard(level) {
     rows = 25;
     cols = 25;
     pro = 0.2;
+  } else {
+	  rows = Number(hei);
+	  cols = Number(wei);
+	  pro = 0.2;
   }
   isPlay = true;
   
